@@ -1,0 +1,33 @@
+##部署使用
+#server:
+#  port: 7001
+#
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    #false表示不向注册中心注册自己
+#    register-with-eureka: false
+#    #false表示自己就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+#    fetch-registry: false
+#    service-url:
+#      #设置与eureka Server交互的地址是查询服务都需要依赖这个地址
+#      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
+
+#开发使用
+server:
+  port: 10001
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    #false表示不向注册中心注册自己
+    register-with-eureka: false
+    #false表示自己就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    fetch-registry: false
+    service-url:
+      #设置与eureka Server交互的地址是查询服务都需要依赖这个地址
+      defaultZone: http://localhost:10001/eureka/
+      #http://localhost:7001/eureka/
+

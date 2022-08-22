@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>预测记录信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+
+<body>
+
+<!--    <form class="layui-form" action="">
+        <div class="layui-btn-group demoTable">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="recent1" onClick="return false">最近24小时</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="recent2" onClick="return false">最近7天</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="recent3" onClick="return false">最近1个月</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="recent4" onClick="return false">最近6个月</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="recent5" onClick="return false">最近1年</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="recent6" onClick="return false">全部</button>
+        </div>
+    </form> -->
+
+    <table id="disasterPredictionTb" lay-filter="disasterPredictionTb"></table>
+    <div class="layui-card-header">
+        <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button> -->
+       <!-- <button class="layui-btn" onclick="xadmin.open('添加预测数据','./disasterPredictionInfo-add.html',1200,600)"><i class="layui-icon"></i>添加</button> -->
+    </div>
+
+    <script type="text/html" id="barDemo">
+        <!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a> -->
+        // <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        // <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script type="text/html" id="pictureTpl">
+        <a href="{{d.picture}}" target="_blank" class="layui-table-link">查看图片</a>
+    </script>
+    <script src="./layui/layui.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <script>
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //第一个实例
+ table.render({
+                                elem: '#disasterPredictionTb',
+                                url: 'http://localhost:10002/v1/comInfo',
+                                page: true,
+								toolbar: '#toolbarDemo',
+								defaultToolbar: ['filter', 'exports', 'print'],
+                                cols: [
+                                    [
+                                        //{type:'checkbox', fixed: 'left'},
+                                        {
+                                            field: 'dateTime',
+                                            title: '时间',
+                                            width: 350,
+                                            sort: true,
+                                            fixed: true
+                                        }, {
+                                            field: 'dbm',
+                                            title: '信号强度',
+                                            width: 180,
+                                            sort: true,
+                                            fixed: true,
+											templet:function(d){
+												if(d.dbm<-99){
+													return '<span>无信号</sapn>'
+												}else{
+													return '<span>有信号</sapn>'
+												}
+											}
+                                        }, {
+                                            field: 'lat',
+                                            title: '纬度',
+                                            width: 200
+                                        }, {
+                                            field: 'lon',
+                                            title: '经度',
+                                            width: 200
+                                        }, {
+                                            field: 'netSpeed',
+                                            title: '网速',
+                                            width: 200
+                                        }, {
+                                            field: 'wifiCount',
+                                            title: 'WiFi数量',
+                                            width: 200
+                                        }
+                                    ]
+                                ]
+                            });
+  
+});
+    </script>
+</body>
+
+</html>
