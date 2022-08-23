@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
     <title>地图显示</title>
     <style>
         html,
@@ -19,11 +22,15 @@
 <div id="container"></div>
 <!-- 加载地图JSAPI脚本 -->
 <script src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值"></script>
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
 <script>
     var map = new AMap.Map('container', {
         resizeEnable: true, //是否监控地图容器尺寸变化
         zoom:11, //初始化地图层级
         center: [116.397428, 39.90923] //初始化地图中心点
+    });
+    map.on("complete", function(){
+        log.success("地图加载完成！");
     });
 </script>
 </body>
