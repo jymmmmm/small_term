@@ -6,8 +6,10 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
-    <script src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值&plugin=AMap.PolyEditor"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+
     <title>地图显示</title>
     <style>
         html,
@@ -20,9 +22,11 @@
 </head>
 <body>
 <div id="container"></div>
-<!-- 加载地图JSAPI脚本 -->
-<script src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值"></script>
-<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<div class="input-card" style="width: 120px">
+    <button class="btn" onclick="polyEditor.open()" style="margin-bottom: 5px">开始编辑</button>
+    <button class="btn" onclick="polyEditor.close()">结束编辑</button>
+</div>
+
 <script>
     var map = new AMap.Map('container', {
         resizeEnable: true, //是否监控地图容器尺寸变化
@@ -32,6 +36,46 @@
     map.on("complete", function(){
         log.success("地图加载完成！");
     });
+
+    var path = [
+        [116.403322, 39.920255],
+        [116.410703, 39.897555],
+        [116.402292, 39.892353],
+        [116.389846, 39.891365]
+    ]
+
+    var polygon = new AMap.Polygon({
+        path: path,
+        strokeColor: "#FF33FF",
+        strokeWeight: 6,
+        strokeOpacity: 0.2,
+        fillOpacity: 0.4,
+        fillColor: '#1791fc',
+        zIndex: 50,
+    })
+
+    map.add(polygon)
+    // 缩放地图到合适的视野级别
+    map.setFitView([ polygon ])
+
+    var polyEditor = new AMap.PolyEditor(map, polygon)
+
+    polyEditor.on('addnode', function(event) {
+        log.info('触发事件：addnode')
+    })
+
+    polyEditor.on('adjust', function(event) {
+        log.info('触发事件：adjust')
+    })
+
+    polyEditor.on('removenode', function(event) {
+        log.info('触发事件：removenode')
+    })
+
+    polyEditor.on('end', function(event) {
+        log.info('触发事件： end')
+        // event.target 即为编辑后的多边形对象
+    })
 </script>
 </body>
 </html>
