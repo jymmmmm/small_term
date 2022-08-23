@@ -9,6 +9,6 @@ import java.sql.Date;
 public class riskyPersonArea implements Serializable {
     private double lat;
     private double lon;
-    private int userId;
+    private int id;
     private String status;
 }
