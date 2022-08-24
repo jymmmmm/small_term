@@ -33,8 +33,12 @@ public class polyAreaService {
     @Autowired
     riskyAreaMapper riskyAreaMapper;
 
+    @Autowired
+    tableService tableService;
+
     public List<poly_list> getpolyArea(){
         List<poly_list> poly_lists = new ArrayList<>();
+        tableService.test_table();
         List<poly_string> polyarea = polyAreaMapper.getAllArea();
         if(polyarea.size() == 0){
             List<riskyPersonArea> area = riskyAreaMapper.getAllArea();
@@ -48,6 +52,7 @@ public class polyAreaService {
                 location.setLon(y).setLat(x).setStatus(s);
                 map.put(location,0);
             }
+
             for(Location key:map.keySet())
             {
                 poly_list poly_list=new poly_list().setList_data(generate_location(key));
@@ -56,6 +61,7 @@ public class polyAreaService {
                 poly_lists.add(poly_list);
                 poly_id++;
             }
+
         }
         else{
             for(poly_string a: polyarea){
@@ -65,8 +71,8 @@ public class polyAreaService {
         }
         return poly_lists;
     }
-
     public void insertUser(poly_string poly_string){
+        tableService.test_table();
         polyAreaMapper.insertUser(poly_string);
     }
 }
