@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
-
+@Data
 public class poly implements Serializable {
     private int id;
     private String status;
