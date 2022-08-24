@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
     <script src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值&plugin=AMap.PolyEditor"></script>
     <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
     <title>地图显示</title>
     <style>
@@ -27,6 +28,9 @@
     <button class="btn" onclick="polyEditor.close()">结束编辑</button>
 </div>
 
+<div class="info" id="text">
+    请点击覆盖物试试
+</div>
 <script>
     var map = new AMap.Map('container', {
         resizeEnable: true, //是否监控地图容器尺寸变化
@@ -35,6 +39,22 @@
     });
     map.on("complete", function(){
         log.success("地图加载完成！");
+        $.get("http://localhost:10003/v1/area",function(obj){
+            var markers = []
+            var data = obj
+            for(var i=0; i<data["data"].length; i++) {
+                var marker = new AMap.Marker({
+                    position: new AMap.LngLat(data["data"][i]["lon"],data["data"][i]["lat"]),
+                    icon: 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                    offset: new AMap.Pixel(-13, -30)
+                });
+                marker.content = marker.content = '确诊人数' + data["data"][i]["count"];
+                marker.on('click', markerClick);
+                map.add(marker);
+                markers.push(marker);
+            }
+
+        });
     });
 
     var path = [
@@ -76,6 +96,21 @@
         log.info('触发事件： end')
         // event.target 即为编辑后的多边形对象
     })
+
+    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+
+    function showInfoM(e){
+        var text = '您在 [ '+e.lnglat.getLng()+','+e.lnglat.getLat()+' ] 的位置点击了marker！'
+        document.querySelector("#text").innerText = text;
+    }
+    function markerClick(e) {
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
+    }
+
+
+
+
 </script>
 </body>
 </html>
