@@ -2,10 +2,9 @@ package teleDemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import teleDemo.entities.GetVo;
+import teleDemo.entities.PostVo;
 import teleDemo.entities.poly_list;
 import teleDemo.entities.riskyPersonArea;
 import teleDemo.service.polyAreaService;
@@ -36,5 +35,12 @@ public class areaController {
         GetVo<poly_list> getVo = new GetVo<>(0,"获取数据成功！",1,polyarea);
         return getVo;
     }
+
+    @PostMapping("/v1/area")
+    public PostVo postRiskyArea(@RequestBody PostVo postVo){
+        System.out.println(postVo);
+        return postVo;
+    }
+
 
 }

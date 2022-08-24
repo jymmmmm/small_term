@@ -1,6 +1,7 @@
 package teleDemo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -39,4 +40,5 @@ public class teleinfoController {
         GetVo<tbuser> getVo = new GetVo<>(0,"获取数据成功！",size,tbInfos);
         return  getVo;
     }
+
 }
