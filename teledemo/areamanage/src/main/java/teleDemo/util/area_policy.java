@@ -27,36 +27,25 @@ public class area_policy {
         List<Pair<Float, Float>> surround=new ArrayList<>();
         float lat=location.getLat();
         float lon=location.getLon();
-        float bias;
+        float bias= (float) 0.0001;
+        Pair<Float,Float> a1=new Pair<>(lat-bias,lon+bias);
+        Pair<Float,Float> a3=new Pair<>(lat+bias,lon+bias);
+        Pair<Float,Float> a2=new Pair<>(lat-bias,lon-bias);
+        Pair<Float,Float> a4=new Pair<>(lat+bias,lon-bias);
         if(location.getStatus().equals("a"))
         {
-            bias=5;
-            Pair<Float,Float> a1=new Pair<>(lat-bias,lon+bias);
-            Pair<Float,Float> a2=new Pair<>(lat+bias,lon+bias);
-            Pair<Float,Float> a3=new Pair<>(lat-bias,lon-bias);
-            Pair<Float,Float> a4=new Pair<>(lat+bias,lon-bias);
             surround.add(a1);
             surround.add(a2);
             surround.add(a3);
             surround.add(a4);
         }
         else if(location.getStatus().equals("b")){
-            bias=2;
-            Pair<Float,Float> a1=new Pair<>(lat-bias,lon+bias);
-            Pair<Float,Float> a2=new Pair<>(lat+bias,lon+bias);
-            Pair<Float,Float> a3=new Pair<>(lat-bias,lon-bias);
-            Pair<Float,Float> a4=new Pair<>(lat+bias,lon-bias);
             surround.add(a1);
             surround.add(a2);
             surround.add(a3);
             surround.add(a4);
         }
         else{
-            bias=1;
-            Pair<Float,Float> a1=new Pair<>(lat-bias,lon+bias);
-            Pair<Float,Float> a2=new Pair<>(lat+bias,lon+bias);
-            Pair<Float,Float> a3=new Pair<>(lat-bias,lon-bias);
-            Pair<Float,Float> a4=new Pair<>(lat+bias,lon-bias);
             surround.add(a1);
             surround.add(a2);
             surround.add(a3);
