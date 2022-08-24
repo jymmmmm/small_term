@@ -7,19 +7,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import teleDemo.entities.GetVo;
 import teleDemo.entities.riskyPersonArea;
-import teleDemo.mapper.riskyAreaMapper;
 import teleDemo.service.riskyAreaService;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 public class areaController {
-
-    @Resource
-    riskyAreaMapper riskyAreaMapper;
-
     @Resource
     riskyAreaService riskyAreaService;
 

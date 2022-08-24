@@ -9,9 +9,11 @@ import java.sql.Date;
 @Data
 @Accessors(chain = true)
 public class riskyPersonArea implements Serializable {
-    private double lat;
-    private double lon;
     private int id;
     private String status;
-    private int count;
+    private double lat;
+    private double lon;
+    private int infected_count;
+    private int closed_count;
+    private int type;
 }
