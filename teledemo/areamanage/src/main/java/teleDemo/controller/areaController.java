@@ -3,6 +3,7 @@ package teleDemo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import teleDemo.entities.GetVo;
 import teleDemo.entities.riskyPersonArea;
@@ -15,9 +16,14 @@ import java.util.List;
 
 @RestController
 public class areaController {
+
     @Resource
     riskyAreaMapper riskyAreaMapper;
 
+    @Resource
+    riskyAreaService riskyAreaService;
+
+    @ResponseBody
     @GetMapping("/area")
     public GetVo getRiskyArea(HttpServletRequest request){
         int limit = Integer.parseInt(request.getParameter("limit"));
@@ -26,6 +32,13 @@ public class areaController {
         System.out.println("1");
         List<riskyPersonArea> areas=riskyAreaMapper.getAllAreaByPage((page-1)*limit,limit);
         GetVo<riskyPersonArea> getVo=new GetVo<>(0,"获取数据成功！",size,areas);
+        return getVo;
+    }
+    @ResponseBody
+    @GetMapping("/areatest")
+    public GetVo getRiskyArea2(){
+        List<riskyPersonArea> areas= riskyAreaService.getRiskyArea();
+        GetVo<riskyPersonArea> getVo=new GetVo<>(0,"获取数据成功！",1,areas);
         return getVo;
     }
 }
