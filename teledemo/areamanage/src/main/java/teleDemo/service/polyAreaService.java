@@ -48,7 +48,6 @@ public class polyAreaService {
                 location.setLon(y).setLat(x).setStatus(s);
                 map.put(location,0);
             }
-
             for(Location key:map.keySet())
             {
                 poly_list poly_list=new poly_list().setList_data(generate_location(key));
@@ -63,8 +62,11 @@ public class polyAreaService {
                 poly_list pl = conversion.ps_to_pl(a);
                 poly_lists.add(pl);
             }
-
         }
         return poly_lists;
+    }
+
+    public void insertUser(poly_string poly_string){
+        polyAreaMapper.insertUser(poly_string);
     }
 }

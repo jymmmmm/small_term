@@ -27,4 +27,7 @@ public interface polyAreaMapper {
     })
     List<poly_string> getAllArea();
 
+    @Insert("insert into polyarea (id,status,str_data) values (#{poly_string.id},#{poly_string.status},#{poly_string.str_data})")
+    void insertUser(@Param("poly_string") poly_string poly_string) throws RuntimeException;
+
 }
