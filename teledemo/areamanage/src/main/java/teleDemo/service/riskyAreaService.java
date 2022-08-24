@@ -5,11 +5,12 @@ import org.springframework.stereotype.Service;
 import teleDemo.entities.riskyPersonArea;
 import teleDemo.mapper.riskyAreaMapper;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class riskyAreaService {
-    @Autowired
+    @Resource
     riskyAreaMapper riskyAreaMapper;
 
     public List<riskyPersonArea> getRiskyArea(){
