@@ -27,11 +27,11 @@ public class area_policy {
         List<Pair<Float, Float>> surround=new ArrayList<>();
         float lat=location.getLat();
         float lon=location.getLon();
-        float bias= (float) 0.0001;
+        float bias= (float) 0.001;
         Pair<Float,Float> a1=new Pair<>(lat-bias,lon+bias);
         Pair<Float,Float> a3=new Pair<>(lat+bias,lon+bias);
-        Pair<Float,Float> a2=new Pair<>(lat-bias,lon-bias);
-        Pair<Float,Float> a4=new Pair<>(lat+bias,lon-bias);
+        Pair<Float,Float> a4=new Pair<>(lat-bias,lon-bias);
+        Pair<Float,Float> a2=new Pair<>(lat+bias,lon-bias);
         if(location.getStatus().equals("a"))
         {
             surround.add(a1);
