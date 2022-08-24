@@ -19,27 +19,46 @@ public class riskyAreaService {
     public List<riskyPersonArea> getRiskyArea(){
         List<riskyPersonArea> area = riskyAreaMapper.getAllArea();
         HashMap<Location,Integer> map = new HashMap<>();
-        HashMap<Location,Integer> countMap = new HashMap<>();
+        HashMap<Location,Integer> count_infected_Map = new HashMap<>();
+        HashMap<Location,Integer> count_closed_Map = new HashMap<>();
         for(riskyPersonArea a : area){
             Location location = new Location();
             int x = (int)a.getLat();
             int y = (int)a.getLon();
-            String s = a.getStatus();
+            String s =a.getStatus();
             location.setLon(y).setLat(x).setStatus(s);
             if (map.containsKey(location)){
-                countMap.put(location,countMap.get(location) + 1);
+                if(location.getStatus().equals("3")){
+                count_infected_Map.put(location,count_infected_Map.get(location) + 1);
+                }
+                else{
+                    count_closed_Map.put(location,count_closed_Map.get(location) + 1);
+                }
                 continue;
             }
             map.put(location,a.getId());
-            countMap.put(location,1);
+            if(location.getStatus().equals("3"))
+            {
+                count_infected_Map.put(location,1);
+                System.out.println(count_infected_Map);
+            }
+            else{
+                count_closed_Map.put(location,1);
+            }
         }
         List<riskyPersonArea> numArea = new ArrayList<>();
         for (Location key : map.keySet() ){
             riskyPersonArea r = new riskyPersonArea().setLat(key.getLat())
                     .setLon(key.getLon())
-                    .setStatus(key.getStatus())
                     .setId(0)
-                    .setCount(countMap.get(key));
+                    .setStatus(null);
+            if(key.getStatus().equals("3"))
+            {
+                r.setInfected_count(count_infected_Map.get(key));
+            }
+            else{
+                r.setClosed_count(count_closed_Map.get(key));
+            }
             numArea.add(r);
         }
         return numArea;

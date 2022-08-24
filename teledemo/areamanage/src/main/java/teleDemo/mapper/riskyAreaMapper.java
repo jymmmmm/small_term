@@ -18,9 +18,4 @@ public interface riskyAreaMapper {
             @Result(column = "lon", property = "lon", jdbcType = JdbcType.DOUBLE)
     })
     List<riskyPersonArea> getAllArea();
-
-    @Select("select distinct u.id,u.status,i.lat,i.lon from teledata.tb_user as u inner join teledata.tb_info as i \n" +
-            "where u.id = i.user_id and u.status = 2 or u.status = 3 limit #{pageNum}, #{limit};")
-    @ResultMap(value = "areaMap")
-    List<riskyPersonArea> getAllAreaByPage(@Param("pageNum") int pageNum, @Param("limit")int limit);
 }
