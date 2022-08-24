@@ -19,6 +19,7 @@ public class riskyAreaService {
     public List<riskyPersonArea> getRiskyArea(){
         List<riskyPersonArea> area = riskyAreaMapper.getAllArea();
         HashMap<Location,Integer> map = new HashMap<>();
+        HashMap<Location,Integer> repeat_map=new HashMap<>();
         HashMap<Location,Integer> count_infected_Map = new HashMap<>();
         HashMap<Location,Integer> count_closed_Map = new HashMap<>();
         for(riskyPersonArea a : area){
@@ -40,14 +41,16 @@ public class riskyAreaService {
             if(location.getStatus().equals("3"))
             {
                 count_infected_Map.put(location,1);
-                System.out.println(count_infected_Map);
             }
             else{
                 count_closed_Map.put(location,1);
             }
         }
         List<riskyPersonArea> numArea = new ArrayList<>();
-        for (Location key : map.keySet() ){
+        Location temp_location=new Location();
+        Location stored_location=new Location();
+        for (Location key:map.keySet() ){
+            if(!repeat_map.containsKey(key)){
             riskyPersonArea r = new riskyPersonArea().setLat(key.getLat())
                     .setLon(key.getLon())
                     .setId(0)
@@ -55,11 +58,22 @@ public class riskyAreaService {
             if(key.getStatus().equals("3"))
             {
                 r.setInfected_count(count_infected_Map.get(key));
+                temp_location.setLat(key.getLat()).setLon(key.getLon()).setStatus("2");
+                if(map.containsKey(temp_location)){
+                    r.setClosed_count(count_closed_Map.get(temp_location));
+                    repeat_map.put(stored_location.setLat(temp_location.getLat()).setLon(temp_location.getLon()).setStatus(temp_location.getStatus()),0);
+                }
             }
             else{
                 r.setClosed_count(count_closed_Map.get(key));
+                temp_location.setLat(key.getLat()).setLon(key.getLon()).setStatus("3");
+                if(map.containsKey(temp_location)){
+                    r.setInfected_count(count_infected_Map.get(temp_location));
+                    repeat_map.put(stored_location.setLat(temp_location.getLat()).setLon(temp_location.getLon()).setStatus(temp_location.getStatus()),0);
+                }
             }
             numArea.add(r);
+            }
         }
         return numArea;
     }
