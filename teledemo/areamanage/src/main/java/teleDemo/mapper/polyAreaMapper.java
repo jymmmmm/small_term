@@ -3,6 +3,7 @@ package teleDemo.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import teleDemo.entities.poly_list;
+import teleDemo.entities.poly_string;
 import teleDemo.entities.riskyPersonArea;
 import teleDemo.entities.tbuser;
 
@@ -24,6 +25,6 @@ public interface polyAreaMapper {
             @Result(column = "str_data", property = "str_data", jdbcType = JdbcType.VARCHAR),
 
     })
-    List<poly_list> getAllArea();
+    List<poly_string> getAllArea();
 
 }

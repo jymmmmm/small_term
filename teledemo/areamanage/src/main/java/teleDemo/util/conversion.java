@@ -8,6 +8,8 @@
 package teleDemo.util;
 
 import javafx.util.Pair;
+import teleDemo.entities.poly_list;
+import teleDemo.entities.poly_string;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -37,6 +39,15 @@ public class conversion {
             poly.add(new Pair<>(lat,lon));
         }
         return poly;
+    }
+
+    public static poly_string pl_to_ps(poly_list pl){
+        return new poly_string(pl.getId(),pl.getStatus(),poly_to_string(pl.getList_data()));
+    }
+
+    public static poly_list ps_to_pl(poly_string ps){
+        return new poly_list(ps.getId(),ps.getStatus(),string_to_poly(ps.getStr_data()));
+
     }
 
     public static void main(String[] args) {
