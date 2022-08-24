@@ -36,7 +36,7 @@ public class polyAreaService {
     public List<poly_list> getpolyArea(){
         List<poly_list> poly_lists = new ArrayList<>();
         List<poly_string> polyarea = polyAreaMapper.getAllArea();
-        if(polyarea == null){
+        if(polyarea.size() == 0){
             List<riskyPersonArea> area = riskyAreaMapper.getAllArea();
             HashMap<Location,Integer> map = new HashMap<>();
             int poly_id=1;
