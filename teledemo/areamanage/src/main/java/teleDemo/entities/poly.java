@@ -11,9 +11,11 @@ package teleDemo.entities;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 
-public class poly {
+
+public class poly implements Serializable {
     private int id;
-    private int status;
+    private String status;
 }
 
