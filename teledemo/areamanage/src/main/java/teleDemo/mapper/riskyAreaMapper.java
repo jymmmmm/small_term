@@ -20,4 +20,7 @@ public interface riskyAreaMapper {
     List<riskyPersonArea> getAllArea();
 
 
+
+
+
 }

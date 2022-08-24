@@ -3,6 +3,7 @@ package teleDemo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import teleDemo.entities.Location;
+import teleDemo.entities.poly;
 import teleDemo.entities.riskyPersonArea;
 import teleDemo.mapper.riskyAreaMapper;
 
@@ -76,5 +77,6 @@ public class riskyAreaService {
             }
         }
         return numArea;
+
     }
 }

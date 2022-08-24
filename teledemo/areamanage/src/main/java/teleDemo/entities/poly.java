@@ -11,9 +11,9 @@ package teleDemo.entities;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-@Data
-@Accessors(chain = true)
+
 public class poly {
     private int id;
-    private String poly;
+    private int status;
 }
+
