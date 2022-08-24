@@ -24,7 +24,7 @@
 <body>
 <div id="container"></div>
 <div class="input-card" style="width: 120px">
-    <button class="btn" onclick="polyEditor.open()" style="margin-bottom: 5px">开始编辑</button>
+    <button class="btn" onclick="editClick()" style="margin-bottom: 5px">开始编辑</button>
     <button class="btn" onclick="polyEditor.close()">结束编辑</button>
 </div>
 
@@ -53,61 +53,99 @@
                 map.add(marker);
                 markers.push(marker);
             }
+        });
 
+        $.get("http://localhost:10003/v1/poly",function (obj){
+            const polygons = [];
+            const data = obj;
+            for(let i=0; i<data["data"].length; i++){
+                const path = [];
+                for(let j=0; j<data["data"][i]["list_data"].length; j++){
+                    path.push([data["data"][i]["list_data"][j]["value"],data["data"][i]["list_data"][j]["key"]])
+                }
+
+                const polygon = new AMap.Polygon({
+                    path: path,
+                    strokeColor: "#FF33FF",
+                    strokeWeight: 6,
+                    strokeOpacity: 0.2,
+                    fillOpacity: 0.4,
+                    fillColor: '#1791fc',
+                    zIndex: 50,
+                });
+                polygon.content = data["data"][i]["id"]
+
+                polygon.on('click', polygonClick)
+
+                map.add(polygon)
+                polygons.push(polygon)
+            }
         });
     });
 
-    var path = [
-        [116.403322, 39.920255],
-        [116.410703, 39.897555],
-        [116.402292, 39.892353],
-        [116.389846, 39.891365]
-    ]
+    var polyEditor
+    var poly_select
+    var current_poly
 
-    var polygon = new AMap.Polygon({
-        path: path,
-        strokeColor: "#FF33FF",
-        strokeWeight: 6,
-        strokeOpacity: 0.2,
-        fillOpacity: 0.4,
-        fillColor: '#1791fc',
-        zIndex: 50,
-    })
 
-    map.add(polygon)
+
     // 缩放地图到合适的视野级别
-    map.setFitView([ polygon ])
+    // map.setFitView([ polygon ])
+    const infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
 
-    var polyEditor = new AMap.PolyEditor(map, polygon)
 
-    polyEditor.on('addnode', function(event) {
-        log.info('触发事件：addnode')
-    })
-
-    polyEditor.on('adjust', function(event) {
-        log.info('触发事件：adjust')
-    })
-
-    polyEditor.on('removenode', function(event) {
-        log.info('触发事件：removenode')
-    })
-
-    polyEditor.on('end', function(event) {
-        log.info('触发事件： end')
-        // event.target 即为编辑后的多边形对象
-    })
-
-    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
-
-    function showInfoM(e){
-        var text = '您在 [ '+e.lnglat.getLng()+','+e.lnglat.getLat()+' ] 的位置点击了marker！'
-        document.querySelector("#text").innerText = text;
-    }
     function markerClick(e) {
+        map.setFitView([ e.target ])
         infoWindow.setContent(e.target.content);
         infoWindow.open(map, e.target.getPosition());
+
     }
 
+    function polygonClick(e) {
+        map.setFitView([ e.target ])
+        poly_select = e.target
+        console.log(poly_select)
+
+
+    }
+    function editClick(){
+        if(typeof(polyEditor)!="undefined"){
+            polyEditor.close();
+        }
+        current_poly = poly_select
+        polyEditor = new AMap.PolyEditor(map, poly_select);
+        polyEditor.on('addnode', function(event) {
+            log.info('触发事件：addnode')
+        })
+
+        polyEditor.on('adjust', function(event) {
+            log.info('触发事件：adjust')
+        })
+
+        polyEditor.on('removenode', function(event) {
+            log.info('触发事件：removenode')
+        })
+
+        polyEditor.on('end', function(event) {
+            log.info('触发事件： end');
+            // event.target 即为编辑后的多边形对象
+        })
+        polyEditor.open();
+    }
+
+    function endEdit(){
+        poly_select.path
+        $.ajax({
+            type: "post",
+            url: "http://localhost:10003/v1/poly",
+            contentType : 'application/json',  //如果传的是json必须加上当前定义，否则页面报415错误
+            data: JSON.stringify(list), //这里需要将参数，序列化成为json数据,js中并没有List数据类型
+            success: function(data) {
+
+            }
+        });
+        polyEditor.close()
+    }
 
 
 
