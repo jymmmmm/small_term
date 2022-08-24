@@ -40,6 +40,6 @@ public class conversion {
     }
 
     public static void main(String[] args) {
-
+        System.out.println(string_to_poly("122.3_145.3_122.5_145.5"));
     }
 }
