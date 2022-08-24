@@ -3,7 +3,6 @@ package teleDemo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import teleDemo.entities.Location;
-import teleDemo.entities.poly;
 import teleDemo.entities.poly_list;
 import teleDemo.entities.poly_string;
 import teleDemo.entities.riskyPersonArea;
@@ -61,6 +60,11 @@ public class polyAreaService {
                 poly_lists.add(poly_list);
                 poly_id++;
             }
+//测试insert功能
+//            for(poly_list a: poly_lists){
+//                poly_string pl = conversion.pl_to_ps(a);
+//                tableService.insert_info_table(pl);
+//            }
 
         }
         else{
@@ -71,8 +75,5 @@ public class polyAreaService {
         }
         return poly_lists;
     }
-    public void insertUser(poly_string poly_string){
-        tableService.test_table();
-        polyAreaMapper.insertUser(poly_string);
-    }
+
 }
