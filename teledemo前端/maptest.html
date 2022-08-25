@@ -77,7 +77,6 @@
 
                 polygon.on('click', polygonClick)
 
-
                 map.add(polygon)
                 polygons.push(polygon)
             }
@@ -136,7 +135,7 @@
     function endEdit(){
         var send = poly_select.content
 
-        send_list = [{"key":1, "value":2}]
+        send_list = [[1,2]]
 
         send["list_data"] = send_list
         console.log(send)
