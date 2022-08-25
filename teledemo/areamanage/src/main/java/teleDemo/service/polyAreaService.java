@@ -72,10 +72,10 @@ public class polyAreaService {
         }
         else{
             for(poly_string a: polyarea){
-//                //测试update
-//                a.setStatus("a");
-//                tableService.update_info_table(a);
                 poly_list pl = conversion.ps_to_pl(a);
+//                //测试update
+//                pl.setStatus("a");
+//                tableService.update_info_table(pl);
                 poly_lists.add(pl);
             }
         }
