@@ -60,22 +60,14 @@ public class polyAreaService {
                 poly_list poly_list=new poly_list().setList_data(generate_location(key));
                 poly_list.setId(poly_id);
                 poly_list.setStatus(key.getStatus());
+                tableService.insert_info_table(poly_list);
                 poly_lists.add(poly_list);
                 poly_id++;
             }
-////测试insert功能
-//            for(poly_list a: poly_lists){
-//                poly_string pl = conversion.pl_to_ps(a);
-//                tableService.insert_info_table(pl);
-//            }
-
         }
         else{
             for(poly_string a: polyarea){
                 poly_list pl = conversion.ps_to_pl(a);
-//                //测试update
-//                pl.setStatus("a");
-//                tableService.update_info_table(pl);
                 poly_lists.add(pl);
             }
         }

@@ -65,8 +65,8 @@ public class tableService {
         return false;
     }
 
-    public void insert_info_table(poly_string poly_string){
-        test_table();
+    public void insert_info_table(poly_list poly_list){
+        poly_string poly_string=pl_to_ps(poly_list);
         polyAreaMapper.insert_info_table(poly_string);
     }
     public void update_info_table(poly_list poly_list){
