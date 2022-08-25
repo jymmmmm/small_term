@@ -9,6 +9,7 @@ import teleDemo.entities.poly_list;
 import teleDemo.entities.riskyPersonArea;
 import teleDemo.service.polyAreaService;
 import teleDemo.service.riskyAreaService;
+import teleDemo.service.tableService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,6 +20,8 @@ public class areaController {
     riskyAreaService riskyAreaService;
     @Resource
     polyAreaService polyAreaService;
+    @Resource
+    tableService tableService;
 
     @ResponseBody
     @GetMapping("/v1/area")
@@ -38,6 +41,7 @@ public class areaController {
 
     @PostMapping("/v1/polyy")
     public poly_list postRiskyArea(@RequestBody poly_list poly_list){
+        tableService.update_info_table(poly_list);
         System.out.println(poly_list);
         return poly_list;
     }
