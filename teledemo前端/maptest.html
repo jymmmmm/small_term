@@ -134,10 +134,12 @@
 
     function endEdit(){
         var send = poly_select.content
-
-        send_list = [[1,2]]
-
-        send["list_data"] = send_list
+        var list = current_poly.getPath()
+        send["list_data"] = []
+        for(let i=0; i<list.length;i++){
+            send["list_data"].push([list[i]["lng"],list[i]["lat"]])
+        }
+        console.log(current_poly.getPath())
         console.log(send)
         $.ajax({
             type: "post",
