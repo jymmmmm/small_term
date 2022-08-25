@@ -25,7 +25,7 @@
 <div id="container"></div>
 <div class="input-card" style="width: 120px">
     <button class="btn" onclick="editClick()" style="margin-bottom: 5px">开始编辑</button>
-    <button class="btn" onclick="polyEditor.close()">结束编辑</button>
+    <button class="btn" onclick="endEdit()">结束编辑</button>
 </div>
 
 <div class="info" id="text">
@@ -73,9 +73,10 @@
                     fillColor: '#1791fc',
                     zIndex: 50,
                 });
-                polygon.content = data["data"][i]["id"]
+                polygon.content = {"id":data["data"][i]["id"], "status":data["data"][i]["status"]}
 
                 polygon.on('click', polygonClick)
+
 
                 map.add(polygon)
                 polygons.push(polygon)
@@ -104,7 +105,6 @@
     function polygonClick(e) {
         map.setFitView([ e.target ])
         poly_select = e.target
-        console.log(poly_select)
 
 
     }
@@ -134,16 +134,22 @@
     }
 
     function endEdit(){
-        poly_select.path
+        var send = poly_select.content
+
+        send_list = [{"key":1, "value":2}]
+
+        send["list_data"] = send_list
+        console.log(send)
         $.ajax({
             type: "post",
-            url: "http://localhost:10003/v1/poly",
+            url: "http://localhost:10003/v1/polyy",
             contentType : 'application/json',  //如果传的是json必须加上当前定义，否则页面报415错误
-            data: JSON.stringify(list), //这里需要将参数，序列化成为json数据,js中并没有List数据类型
+            data: JSON.stringify(send), //这里需要将参数，序列化成为json数据,js中并没有List数据类型
             success: function(data) {
-
+                console.log("aaaaaaaaaa")
             }
         });
+
         polyEditor.close()
     }
 

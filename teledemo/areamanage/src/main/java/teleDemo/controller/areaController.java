@@ -36,10 +36,10 @@ public class areaController {
         return getVo;
     }
 
-    @PostMapping("/v1/area")
-    public PostVo postRiskyArea(@RequestBody PostVo postVo){
-        System.out.println(postVo);
-        return postVo;
+    @PostMapping("/v1/polyy")
+    public poly_list postRiskyArea(@RequestBody poly_list poly_list){
+        System.out.println(poly_list);
+        return poly_list;
     }
 
 
