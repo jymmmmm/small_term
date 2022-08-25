@@ -35,12 +35,15 @@ public class polyAreaService {
     @Autowired
     tableService tableService;
 
+    @Autowired
+    riskyAreaService riskyAreaService;
+
     public List<poly_list> getpolyArea(){
         List<poly_list> poly_lists = new ArrayList<>();
         tableService.test_table();
         List<poly_string> polyarea = polyAreaMapper.getAllArea();
         if(polyarea.size() == 0){
-            List<riskyPersonArea> area = riskyAreaMapper.getAllArea();
+            List<riskyPersonArea> area=riskyAreaService.getRiskyArea();
             HashMap<Location,Integer> map = new HashMap<>();
             int poly_id=1;
             for(riskyPersonArea a : area){
@@ -60,7 +63,7 @@ public class polyAreaService {
                 poly_lists.add(poly_list);
                 poly_id++;
             }
-//测试insert功能
+////测试insert功能
 //            for(poly_list a: poly_lists){
 //                poly_string pl = conversion.pl_to_ps(a);
 //                tableService.insert_info_table(pl);
@@ -69,6 +72,9 @@ public class polyAreaService {
         }
         else{
             for(poly_string a: polyarea){
+//                //测试update
+//                a.setStatus("a");
+//                tableService.update_info_table(a);
                 poly_list pl = conversion.ps_to_pl(a);
                 poly_lists.add(pl);
             }

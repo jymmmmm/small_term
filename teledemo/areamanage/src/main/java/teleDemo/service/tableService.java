@@ -66,5 +66,7 @@ public class tableService {
         test_table();
         polyAreaMapper.insert_info_table(poly_string);
     }
-
+    public void update_info_table(poly_string poly_string){
+        polyAreaMapper.update_info_table(poly_string);
+    }
 }
