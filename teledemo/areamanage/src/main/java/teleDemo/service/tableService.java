@@ -1,18 +1,26 @@
 package teleDemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import teleDemo.entities.poly_list;
+import teleDemo.entities.poly_string;
+import teleDemo.mapper.polyAreaMapper;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
+import static teleDemo.util.conversion.pl_to_ps;
+
 @Service
 public class tableService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    polyAreaMapper polyAreaMapper;
+
     public  void createTable(JdbcTemplate jt){
         StringBuffer sb = new StringBuffer("");
         sb.append("create table polyarea");
@@ -57,4 +65,12 @@ public class tableService {
         return false;
     }
 
+    public void insert_info_table(poly_string poly_string){
+        test_table();
+        polyAreaMapper.insert_info_table(poly_string);
+    }
+    public void update_info_table(poly_list poly_list){
+        poly_string poly_string=pl_to_ps(poly_list);
+        polyAreaMapper.update_info_table(poly_string);
+    }
 }

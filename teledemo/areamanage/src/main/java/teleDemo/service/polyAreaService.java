@@ -3,7 +3,6 @@ package teleDemo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import teleDemo.entities.Location;
-import teleDemo.entities.poly;
 import teleDemo.entities.poly_list;
 import teleDemo.entities.poly_string;
 import teleDemo.entities.riskyPersonArea;
@@ -36,12 +35,15 @@ public class polyAreaService {
     @Autowired
     tableService tableService;
 
+    @Autowired
+    riskyAreaService riskyAreaService;
+
     public List<poly_list> getpolyArea(){
         List<poly_list> poly_lists = new ArrayList<>();
         tableService.test_table();
         List<poly_string> polyarea = polyAreaMapper.getAllArea();
         if(polyarea.size() == 0){
-            List<riskyPersonArea> area = riskyAreaMapper.getAllArea();
+            List<riskyPersonArea> area=riskyAreaService.getRiskyArea();
             HashMap<Location,Integer> map = new HashMap<>();
             int poly_id=1;
             for(riskyPersonArea a : area){
@@ -61,18 +63,23 @@ public class polyAreaService {
                 poly_lists.add(poly_list);
                 poly_id++;
             }
+////测试insert功能
+//            for(poly_list a: poly_lists){
+//                poly_string pl = conversion.pl_to_ps(a);
+//                tableService.insert_info_table(pl);
+//            }
 
         }
         else{
             for(poly_string a: polyarea){
                 poly_list pl = conversion.ps_to_pl(a);
+//                //测试update
+//                pl.setStatus("a");
+//                tableService.update_info_table(pl);
                 poly_lists.add(pl);
             }
         }
         return poly_lists;
     }
-    public void insertUser(poly_string poly_string){
-        tableService.test_table();
-        polyAreaMapper.insertUser(poly_string);
-    }
+
 }
