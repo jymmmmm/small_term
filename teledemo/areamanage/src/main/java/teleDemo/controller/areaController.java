@@ -1,14 +1,16 @@
 package teleDemo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 import teleDemo.entities.*;
 import teleDemo.service.polyAreaService;
 import teleDemo.service.riskyAreaService;
+import teleDemo.service.tableService;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static teleDemo.util.conversion.pp_to_pl;
 
 @RestController
 public class areaController {
@@ -16,6 +18,8 @@ public class areaController {
     riskyAreaService riskyAreaService;
     @Resource
     polyAreaService polyAreaService;
+    @Resource
+    tableService tableService;
 
     @ResponseBody
     @GetMapping("/v1/area")
@@ -35,8 +39,8 @@ public class areaController {
 
     @PostMapping("/v1/polyy")
     public poly_post postRiskyArea(@RequestBody poly_post poly_post){
-        System.out.println(poly_post);
-        System.out.println(poly_post.getList_data().get(0).getClass());
+        poly_list poly_list=pp_to_pl(poly_post);
+        tableService.update_info_table(poly_list);
         return poly_post;
     }
 }
