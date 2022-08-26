@@ -3,7 +3,6 @@ package teleDemo.controller;
 
 import org.springframework.web.bind.annotation.*;
 import teleDemo.entities.*;
-import teleDemo.service.polyAreaService;
 import teleDemo.service.riskyAreaService;
 import teleDemo.service.tableService;
 
@@ -16,8 +15,8 @@ import static teleDemo.util.conversion.pp_to_pl;
 public class areaController {
     @Resource
     riskyAreaService riskyAreaService;
-    @Resource
-    polyAreaService polyAreaService;
+//    @Resource
+//    polyAreaService polyAreaService;
     @Resource
     tableService tableService;
 
@@ -29,18 +28,18 @@ public class areaController {
         return getVo;
     }
 
-    @ResponseBody
-    @GetMapping("/v1/poly")
-    public GetVo getRiskyPoly(){
-        List<poly_list> polyarea =polyAreaService.getpolyArea();
-        GetVo<poly_list> getVo = new GetVo<>(0,"获取数据成功！",1,polyarea);
-        return getVo;
-    }
-
-    @PostMapping("/v1/polyy")
-    public poly_post postRiskyArea(@RequestBody poly_post poly_post){
-        poly_list poly_list=pp_to_pl(poly_post);
-        tableService.update_info_table(poly_list);
-        return poly_post;
-    }
+//    @ResponseBody
+//    @GetMapping("/v1/poly")
+//    public GetVo getRiskyPoly(){
+//        List<poly_list> polyarea =polyAreaService.getpolyArea();
+//        GetVo<poly_list> getVo = new GetVo<>(0,"获取数据成功！",1,polyarea);
+//        return getVo;
+//    }
+//
+//    @PostMapping("/v1/polyy")
+//    public poly_post postRiskyArea(@RequestBody poly_post poly_post){
+//        poly_list poly_list=pp_to_pl(poly_post);
+//        tableService.update_info_table(poly_list);
+//        return poly_post;
+//    }
 }

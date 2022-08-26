@@ -3,15 +3,8 @@ package teleDemo.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import teleDemo.entities.poly_string;
-
 import java.util.List;
 
-/**
- * @Projectname: 项目前后端架构(1)
- * @Filename: polyAreaMapper
- * @Author: Jia Yiming
- * @Data:2022/8/24 14:47
- */
 
 @Mapper
 public interface polyAreaMapper {

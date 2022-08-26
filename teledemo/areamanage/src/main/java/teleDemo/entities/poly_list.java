@@ -18,15 +18,13 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class poly_list extends poly{
-    List<Pair<Float,Float>> list_data;
+    List<Pair<Double,Double>> list_data;
 
-    public poly_list(int id, String status, List<Pair<Float, Float>> string_to_poly) {
+    public poly_list(int id, List<Pair<Double,Double>> string_to_poly) {
         this.setId(id);
-        this.setStatus(status);
         this.setList_data(string_to_poly);
     }
 
     public poly_list() {
-
     }
 }

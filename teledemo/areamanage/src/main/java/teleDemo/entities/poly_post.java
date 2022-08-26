@@ -19,12 +19,10 @@ import java.util.List;
 @Accessors(chain = true)
 public class poly_post<T> extends poly{
     List<T> list_data;
-    public poly_post(int id, String status, List<T> string_to_poly) {
+    public poly_post(int id, List<T> string_to_poly) {
         this.setId(id);
-        this.setStatus(status);
         this.setList_data(string_to_poly);
     }
-
     public poly_post() {
 
     }
