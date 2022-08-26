@@ -5,6 +5,7 @@
 /teledemo前端/js
 /teledemo前端/layui
 /teledemo前端/lib
+/teledemo/*/target
 .idea
 pom.xml
 *.yml
