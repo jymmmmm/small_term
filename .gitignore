@@ -7,5 +7,4 @@
 /teledemo前端/lib
 /teledemo/*/target
 .idea
-pom.xml
 *.yml
