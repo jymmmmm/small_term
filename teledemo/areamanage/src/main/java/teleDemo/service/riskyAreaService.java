@@ -1,5 +1,7 @@
 package teleDemo.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +32,10 @@ public class riskyAreaService {
         int temp_infected,temp_closed;
         int temp_lat1,temp_lon1;
         double temp_lat2,temp_lon2;
-        int polyid=1;
+        String polyid;
         List<riskyPersonArea> area = riskyAreaMapper.calculate_riskyarea();
         List<riskyPersonArea> risktotalarea = new ArrayList<>();
-        HashMap<Location,Integer> map = new HashMap<>();
+        HashMap<Location,String> map = new HashMap<>();
         HashMap<Location,Integer> count_infected_Map = new HashMap<>();
         HashMap<Location,Integer> count_closed_Map = new HashMap<>();
         HashMap<riskyPersonArea,Boolean> test_area = new HashMap<>();
@@ -56,8 +58,8 @@ public class riskyAreaService {
                 }
                 continue;
             }
+            polyid=location.getLat()+"_"+location.getLon();
             map.put(location,polyid);
-            polyid++;
             if(a.getStatus().equals("3"))
             {
                 count_infected_Map.put(location,1);
@@ -68,8 +70,8 @@ public class riskyAreaService {
         }
         for(Location key:count_infected_Map.keySet()){
             temp_closed=0;
-            temp_lat2=(double)(key.getLat())/100;
-            temp_lon2=(double)(key.getLon())/100;
+            temp_lat2=(double)(key.getLat())/cluster_num;
+            temp_lon2=(double)(key.getLon())/cluster_num;
             riskyPersonArea riskyarea1=new riskyPersonArea().setLat(temp_lat2)
                     .setLon(temp_lon2).setPoly_id(map.get(key));
             temp_infected=count_infected_Map.get(key);
@@ -85,8 +87,8 @@ public class riskyAreaService {
         }
 
         for(Location key:count_closed_Map.keySet()){
-            temp_lat2=(double)(key.getLat())/100;
-            temp_lon2=(double)(key.getLon())/100;
+            temp_lat2=(double)(key.getLat())/cluster_num;
+            temp_lon2=(double)(key.getLon())/cluster_num;
             riskyPersonArea riskyarea2=new riskyPersonArea().setLat(temp_lat2)
                     .setLon(temp_lon2).setPoly_id(map.get(key));
             temp_closed=count_closed_Map.get(key);
@@ -124,5 +126,9 @@ public class riskyAreaService {
             }
         }
         return risktotalarea;
+    }
+
+    public  int getCluster_num() {
+        return cluster_num;
     }
 }

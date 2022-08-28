@@ -1,6 +1,8 @@
 package teleDemo.util;
 import javafx.util.Pair;
 import teleDemo.entities.Location;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class area_policy {
     */
     private static int weight=10;
     private static int level_value=15;
-    private static double bias=0.0001;
+    private static BigDecimal bias=new BigDecimal("0.0001");
     public enum level {
         LOW, MEDIUM, HIGH
     }
@@ -34,14 +36,14 @@ public class area_policy {
         }
         return res.toString();
     }
-    public static List<Pair<Double,Double>> generate_location(Location location,String status) {
+    public static List<Pair<Double,Double>> generate_location(Location location,String status,int cluster_num) {
         List<Pair<Double,Double>> surround=new ArrayList<>();
-        int lat=location.getLat();
-        int lon=location.getLon();
-        Pair<Double,Double> a1=new Pair<>(lat-bias,lon-bias);
-        Pair<Double,Double> a2=new Pair<>(lat-bias,lon+bias);
-        Pair<Double,Double> a3=new Pair<>(lat+bias,lon+bias);
-        Pair<Double,Double> a4=new Pair<>(lat+bias,lon-bias);
+        BigDecimal bd_lat = new BigDecimal(String.valueOf((double) (location.getLat())/cluster_num));
+        BigDecimal bd_lon = new BigDecimal(String.valueOf((double) (location.getLon())/cluster_num));
+        Pair<Double,Double> a1=new Pair<>(bd_lat.subtract(bias).doubleValue(),bd_lon.subtract(bias).doubleValue());
+        Pair<Double,Double> a2=new Pair<>(bd_lat.subtract(bias).doubleValue(),bd_lon.add(bias).doubleValue());
+        Pair<Double,Double> a3=new Pair<>(bd_lat.add(bias).doubleValue(),bd_lon.add(bias).doubleValue());
+        Pair<Double,Double> a4=new Pair<>(bd_lat.add(bias).doubleValue(),bd_lon.subtract(bias).doubleValue());
         if(status.equals(level.HIGH.toString()))
         {
             surround.add(a1);

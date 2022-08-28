@@ -25,7 +25,7 @@ public interface riskyAreaMapper {
             @Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
             @Result(column = "infected_count", property = "infected_count", jdbcType = JdbcType.INTEGER),
             @Result(column = "closed_count", property = "closed_count", jdbcType = JdbcType.INTEGER),
-            @Result(column = "poly_id", property = "poly_id", jdbcType = JdbcType.INTEGER)
+            @Result(column = "poly_id", property = "poly_id", jdbcType = JdbcType.VARCHAR)
 
     })
     List<riskyPersonArea> riskyarea_from_database();

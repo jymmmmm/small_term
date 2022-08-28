@@ -14,5 +14,5 @@ public class riskyPersonArea implements Serializable {
     private String status;
     private int infected_count;
     private int closed_count;
-    private int poly_id;
+    private String poly_id;
 }

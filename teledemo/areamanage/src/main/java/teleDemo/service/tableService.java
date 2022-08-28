@@ -30,9 +30,10 @@ public class tableService {
         StringBuffer sb = new StringBuffer();
         if(tableName.equals("polyarea")){
             sb.append("create table polyarea");
-            sb.append("(id int not null,");
-            sb.append("status varchar(20) not null,");
-            sb.append("str_data varchar(255) not null);");
+            sb.append("(id varchar(50) not null,");
+            sb.append("status varchar(10) not null,");
+            sb.append("str_data varchar(255) not null,");
+            sb.append("primary key(id));");
         }
         if(tableName.equals("riskyarea")){
             sb.append("create table riskyarea(");
@@ -40,7 +41,7 @@ public class tableService {
             sb.append("status varchar(20) not null,");
             sb.append("infected_count int not null,");
             sb.append("closed_count int not null,");
-            sb.append("poly_id int not null,");
+            sb.append("poly_id varchar(50) not null,");
             sb.append("primary key(lat,lon));");
         }
         try {
@@ -96,5 +97,8 @@ public class tableService {
 
     public void delete_info_table(riskyPersonArea riskyPersonArea){
         riskyAreaMapper.delete_info_table(riskyPersonArea);
+    }
+    public void delete_info_table(poly_string poly_string){
+        polyAreaMapper.delete_info_table(poly_string);
     }
 }
