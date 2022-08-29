@@ -16,7 +16,7 @@ public class area_policy {
     */
     private static int weight=10;
     private static int level_value=15;
-    private static BigDecimal bias=new BigDecimal("0.0001");
+    private static BigDecimal bias=new BigDecimal("0.004");
     public enum level {
         LOW, MEDIUM, HIGH
     }

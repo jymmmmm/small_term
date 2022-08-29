@@ -7,6 +7,7 @@ import teleDemo.entities.*;
 import teleDemo.mapper.polyAreaMapper;
 import teleDemo.mapper.riskyAreaMapper;
 import teleDemo.util.conversion;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,12 +34,14 @@ public class polyAreaService {
         List<riskyPersonArea> area=riskyAreaMapper.riskyarea_from_database();
         tableService.test_table("polyarea");
         List<poly_string> polyarea = polyAreaMapper.getAllPolyArea();
-        List<poly_string> error_ployarea= polyAreaMapper.getAllPolyArea();
         if(polyarea.size() == 0){
             for(riskyPersonArea a : area){
                 Location location = new Location();
-                int x = (int)(a.getLat()*riskyAreaService.getCluster_num());
-                int y = (int)(a.getLon()*riskyAreaService.getCluster_num());
+                BigDecimal bd_lat = new BigDecimal(String.valueOf(a.getLat()));
+                BigDecimal bd_lon = new BigDecimal(String.valueOf(a.getLon()));
+                BigDecimal bd_cluster = new BigDecimal(String.valueOf(riskyAreaService.getCluster_num()));
+                int x = bd_lat.multiply(bd_cluster).intValue();
+                int y = bd_lon.multiply(bd_cluster).intValue();
                 location.setLon(y).setLat(x);
                 poly_list poly_list=new poly_list(a.getPoly_id(),a.getStatus(),generate_location(location,a.getStatus(),riskyAreaService.getCluster_num()));
                 tableService.insert_info_table(poly_list);
