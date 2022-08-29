@@ -31,9 +31,9 @@ public class polyAreaService {
     public List<poly_list> getpolyArea(){
         ConcurrentHashMap<String,String> polylist_map=new ConcurrentHashMap<>();
         List<poly_list> poly_list_data = new ArrayList<>();
-        List<riskyPersonArea> area=riskyAreaMapper.riskyarea_from_database();
-        tableService.test_table("polyarea");
+        polyAreaMapper.create_polyarea_table();
         List<poly_string> polyarea = polyAreaMapper.getAllPolyArea();
+        List<riskyPersonArea> area=riskyAreaService.transfer_riskyarea_poly();
         if(polyarea.size() == 0){
             for(riskyPersonArea a : area){
                 Location location = new Location();

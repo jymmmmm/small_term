@@ -9,7 +9,6 @@ import teleDemo.mapper.riskyAreaMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import static teleDemo.util.area_policy.judge_level;
 
 @Service
@@ -24,6 +23,8 @@ public class riskyAreaService {
 
     @Autowired
     tableService tableService;
+
+    private boolean run_state=false;
 
     public List<riskyPersonArea> getRiskyArea(){
         int temp_infected,temp_closed;
@@ -94,7 +95,8 @@ public class riskyAreaService {
             risktotalarea.add(riskyarea2);
             test_area.put(riskyarea2,true);
         }
-        tableService.test_table("riskyarea");
+
+        riskyAreaMapper.create_riskyarea_table();
         List<riskyPersonArea> riskyarea_database=riskyAreaMapper.riskyarea_from_database();
         if(riskyarea_database.size()==0) {
             for(riskyPersonArea r:risktotalarea)
@@ -122,10 +124,19 @@ public class riskyAreaService {
                 }
             }
         }
+        run_state=true;
         return risktotalarea;
     }
 
     public  int getCluster_num() {
         return cluster_num;
+    }
+
+    public List<riskyPersonArea> transfer_riskyarea_poly(){
+        while(!run_state) {
+
+        }
+        List<riskyPersonArea> riskyarea = riskyAreaMapper.riskyarea_from_database();
+        return riskyarea;
     }
 }

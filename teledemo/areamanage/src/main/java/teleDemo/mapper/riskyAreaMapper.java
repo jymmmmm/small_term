@@ -37,5 +37,8 @@ public interface riskyAreaMapper {
     @Delete("delete from riskyarea where lat=#{risky.lat} and lon=#{risky.lon}")
     void delete_info_table(@Param("risky") riskyPersonArea riskyPersonArea) throws RuntimeException;
 
+    @Insert("create table if not exists riskyarea(lat double,lon double,status varchar(20) not null,infected_count int not null,closed_count int not null,poly_id varchar(50) not null,primary key(lat,lon));")
+    void create_riskyarea_table();
+
 
 }

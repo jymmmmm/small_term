@@ -3,7 +3,6 @@ package teleDemo.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import teleDemo.entities.poly_string;
-import teleDemo.entities.riskyPersonArea;
 
 import java.util.List;
 
@@ -28,6 +27,6 @@ public interface polyAreaMapper {
     @Delete("delete from polyarea where id=#{poly.id};")
     void delete_info_table(@Param("poly") poly_string poly_string) throws RuntimeException;
 
-//    @Insert("create table polyarea (id varchar(50) not null,status varchar(10) not null,")
-//    void createInfoTable();
+    @Insert("create table if not exists polyarea (id varchar(50) not null,status varchar(10) not null,str_data varchar(255) not null,primary key(id));")
+    void create_polyarea_table();
 }
