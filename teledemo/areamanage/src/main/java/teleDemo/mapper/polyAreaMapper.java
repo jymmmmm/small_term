@@ -28,6 +28,6 @@ public interface polyAreaMapper {
     @Delete("delete from polyarea where id=#{poly.id};")
     void delete_info_table(@Param("poly") poly_string poly_string) throws RuntimeException;
 
-    @Insert("create table polyarea (id varchar(50) not null,status varchar(10) not null,")
-    void createInfoTable();
+//    @Insert("create table polyarea (id varchar(50) not null,status varchar(10) not null,")
+//    void createInfoTable();
 }
