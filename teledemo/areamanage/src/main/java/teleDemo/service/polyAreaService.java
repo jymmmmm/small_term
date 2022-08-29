@@ -1,23 +1,17 @@
 package teleDemo.service;
 
-import javafx.util.Pair;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import teleDemo.entities.Location;
-import teleDemo.entities.poly_list;
-import teleDemo.entities.poly_string;
-import teleDemo.entities.riskyPersonArea;
+import teleDemo.entities.*;
 import teleDemo.mapper.polyAreaMapper;
 import teleDemo.mapper.riskyAreaMapper;
 import teleDemo.util.conversion;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-
 import static teleDemo.util.area_policy.generate_location;
 import static teleDemo.util.conversion.string_to_pair;
-import static teleDemo.util.conversion.string_to_poly;
 
 @Service
 public class polyAreaService {

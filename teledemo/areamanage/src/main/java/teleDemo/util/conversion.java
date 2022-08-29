@@ -1,10 +1,9 @@
 package teleDemo.util;
 
-import javafx.util.Pair;
+import teleDemo.entities.Pair;
 import teleDemo.entities.poly_list;
 import teleDemo.entities.poly_post;
 import teleDemo.entities.poly_string;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;

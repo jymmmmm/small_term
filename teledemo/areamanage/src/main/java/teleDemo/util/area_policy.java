@@ -1,7 +1,7 @@
 package teleDemo.util;
-import javafx.util.Pair;
-import teleDemo.entities.Location;
 
+import teleDemo.entities.Location;
+import teleDemo.entities.Pair;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class area_policy {
         }
         return res.toString();
     }
-    public static List<Pair<Double,Double>> generate_location(Location location,String status,int cluster_num) {
+    public static List<Pair<Double,Double>> generate_location(Location location, String status, int cluster_num) {
         List<Pair<Double,Double>> surround=new ArrayList<>();
         BigDecimal bd_lat = new BigDecimal(String.valueOf((double) (location.getLat())/cluster_num));
         BigDecimal bd_lon = new BigDecimal(String.valueOf((double) (location.getLon())/cluster_num));

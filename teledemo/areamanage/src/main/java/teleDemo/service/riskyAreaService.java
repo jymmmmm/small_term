@@ -1,14 +1,11 @@
 package teleDemo.service;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.var;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import teleDemo.entities.Location;
 import teleDemo.entities.riskyPersonArea;
 import teleDemo.mapper.riskyAreaMapper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
