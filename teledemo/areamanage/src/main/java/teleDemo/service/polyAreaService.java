@@ -71,7 +71,7 @@ public class polyAreaService {
             }
             for(String key:polylist_map.keySet()){
                 Pair<Integer,Integer> pair=string_to_pair(key);
-                Location location=new Location().setLon(pair.getKey()).setLat(pair.getValue());
+                Location location=new Location().setLon(pair.getValue()).setLat(pair.getKey());//经纬度赋值相反
                 poly_list poly_list=new poly_list(key,polylist_map.get(key),generate_location(location,polylist_map.get(key), riskyAreaService.getCluster_num()));
                 poly_list_data.add(poly_list);
                 tableService.insert_info_table(poly_list);

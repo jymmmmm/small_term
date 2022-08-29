@@ -36,4 +36,6 @@ public interface riskyAreaMapper {
 
     @Delete("delete from riskyarea where lat=#{risky.lat} and lon=#{risky.lon}")
     void delete_info_table(@Param("risky") riskyPersonArea riskyPersonArea) throws RuntimeException;
+
+
 }
