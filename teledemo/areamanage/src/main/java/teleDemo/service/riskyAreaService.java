@@ -133,9 +133,9 @@ public class riskyAreaService {
     }
 
     public List<riskyPersonArea> transfer_riskyarea_poly(){
-        while(!run_state) {
-
-        }
+//        while(!run_state) {
+//
+//        }
         List<riskyPersonArea> riskyarea = riskyAreaMapper.riskyarea_from_database();
         return riskyarea;
     }
