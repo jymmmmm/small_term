@@ -22,7 +22,7 @@ public class Pair_test {
 
     }
     @Test
-    public void test_location(){
+    public void test_pair(){
         Assertions.assertEquals("Pair(key=1, value=one)",return_pair().toString());
     }
 }

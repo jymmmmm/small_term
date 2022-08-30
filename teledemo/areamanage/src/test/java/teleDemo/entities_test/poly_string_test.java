@@ -12,7 +12,7 @@ import teleDemo.entities.poly_string;
 
 
 public class poly_string_test {
-    public poly_string return_pair(){
+    public poly_string return_poly_string(){
          String str_data = "yyh";
         poly_string poly_string = new poly_string("1","A",str_data);
 
@@ -23,7 +23,7 @@ public class poly_string_test {
 
     }
     @Test
-    public void test_poly(){
-        Assertions.assertEquals("poly_string(str_data=yyh)", return_pair().toString());
+    public void test_poly_string(){
+        Assertions.assertEquals("poly_string(str_data=yyh)", return_poly_string().toString());
     }
 }

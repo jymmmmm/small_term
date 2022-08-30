@@ -28,7 +28,7 @@ public class poly_list_test {
 
     }
     @Test
-    public void test_poly(){
+    public void test_pair_list(){
         Assertions.assertEquals("poly_list(list_data=null)", return_pair_list().toString());
     }
 

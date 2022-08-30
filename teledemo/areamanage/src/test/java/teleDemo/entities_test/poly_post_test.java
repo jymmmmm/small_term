@@ -22,7 +22,7 @@ public class poly_post_test {
         return poly_Post;
     }
     @Test
-    public void test_poly(){
+    public void test_poly_post(){
         Assertions.assertEquals("poly_post(list_data=null)", poly_post_return().toString());
     }
 }
