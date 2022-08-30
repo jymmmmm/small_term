@@ -26,7 +26,7 @@ public class areaController {
     @ResponseBody
     @GetMapping("/v1/area")
     public GetVo getRiskyArea(){
-        List<riskyPersonArea> areas= riskyAreaService.getRiskyArea();
+        List<riskyPersonArea> areas= riskyAreaService.riskyarea_operation();
         GetVo<riskyPersonArea> getVo=new GetVo<>(0,"获取数据成功！",1,areas);
         return getVo;
     }
@@ -34,7 +34,7 @@ public class areaController {
     @ResponseBody
     @GetMapping("/v1/poly")
     public GetVo getRiskyPoly(){
-        List<poly_list> polyarea =polyAreaService.getpolyArea();
+        List<poly_list> polyarea =polyAreaService.polyarea_operation();
         GetVo<poly_list> getVo = new GetVo<>(0,"获取数据成功！",1,polyarea);
         return getVo;
     }
@@ -43,7 +43,6 @@ public class areaController {
     public poly_post postRiskyArea(@RequestBody poly_post poly_post){
         poly_list poly_list=pp_to_pl(poly_post);
         tableService.update_info_table(poly_list);
-
         return poly_post;
     }
 }

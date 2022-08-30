@@ -1,7 +1,6 @@
 package teleDemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import teleDemo.entities.poly_list;
 import teleDemo.entities.poly_string;
@@ -12,15 +11,12 @@ import static teleDemo.util.conversion.pl_to_ps;
 
 @Service
 public class tableService {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     polyAreaMapper polyAreaMapper;
 
     @Autowired
     riskyAreaMapper riskyAreaMapper;
-
 
     public void insert_info_table(poly_list poly_list){
         poly_string poly_string=pl_to_ps(poly_list);

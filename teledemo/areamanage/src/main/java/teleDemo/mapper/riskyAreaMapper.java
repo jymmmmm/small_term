@@ -3,7 +3,6 @@ package teleDemo.mapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import teleDemo.entities.riskyPersonArea;
-
 import java.util.List;
 
 @Mapper
