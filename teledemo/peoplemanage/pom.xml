@@ -109,10 +109,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                    <mainClass>com.earthquake.managementPlatform.dataBackup6005</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

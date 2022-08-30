@@ -110,14 +110,6 @@
             var markers = []
             var data = obj
             for(let i=0; i<data["data"].length; i++) {
-                // var marker = new AMap.Marker({
-                //     position: new AMap.LngLat(data["data"][i]["lon"],data["data"][i]["lat"]),
-                //     // icon: 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-                //     icon: 'https://vdata.amap.com/icons/b18/1/2.png',
-                //     offset: new AMap.Pixel(-13, -30)
-                // });
-
-
                 var marker = new AMap.CircleMarker({
                     center: new AMap.LngLat(data["data"][i]["lon"],data["data"][i]["lat"]),
                     radius:10+(data["data"][i]["infected_count"]+data["data"][i]["closed_count"]),//3D视图下，CircleMarker半径不要超过64px
@@ -146,71 +138,73 @@
                 map.add(marker);
                 markers.push(marker);
             }
-        });
 
-        $.get("http://localhost:10003/v1/poly",function (obj){
-            const data = obj;
-            console.log(data)
-            for(let i=0; i<data["data"].length; i++){
-                const path = [];
-                for(let j=0; j<data["data"][i]["list_data"].length; j++){
-                    path.push([data["data"][i]["list_data"][j]["value"],data["data"][i]["list_data"][j]["key"]])
+
+            $.get("http://localhost:10003/v1/poly",function (obj){
+                const data = obj;
+                for(let i=0; i<data["data"].length; i++){
+                    const path = [];
+                    for(let j=0; j<data["data"][i]["list_data"].length; j++){
+                        path.push([data["data"][i]["list_data"][j]["value"],data["data"][i]["list_data"][j]["key"]])
+                    }
+
+                    const polygon = new AMap.Polygon({
+                        path: path,
+                        strokeColor: "#FF33FF",
+                        strokeWeight: 6,
+                        strokeOpacity: 0.2,
+                        fillOpacity: 0.4,
+                        fillColor: function (){
+                            if(data["data"][i]["status"] === 'HIGH'){
+                                return '#b61515'
+                            }else{
+                                if(data["data"][i]["status"] === 'MEDIUM'){
+                                    return '#d37d0d'
+                                }
+                                if(data["data"][i]["status"] === 'LOW'){
+                                    return  '#1791fc'
+                                }
+                            }
+                        },
+                        // fillColor: '#1791fc',
+                        zIndex: 50,
+                    });
+                    polygon.content = {"id":data["data"][i]["id"], "status":data["data"][i]["status"]}
+
+                    polygon.on('click', polygonClick)
+
+                    polygon.on('dblclick', () => {
+                        current_poly = polygon;
+                        select_poly = polygon
+                        polyEditor.setTarget(polygon);
+                        polyEditor.open();
+                    })
+
+                    map.add(polygon)
+                    risk_polygons.push(polygon)
                 }
-
-                const polygon = new AMap.Polygon({
-                    path: path,
-                    strokeColor: "#FF33FF",
-                    strokeWeight: 6,
-                    strokeOpacity: 0.2,
-                    fillOpacity: 0.4,
-                    fillColor: function (){
-                        if(data["data"][i]["status"] === 'HIGH'){
-                            return '#b61515'
-                        }else{
-                            if(data["data"][i]["status"] === 'MEDIUM'){
-                                return '#d37d0d'
-                            }
-                            if(data["data"][i]["status"] === 'LOW'){
-                                return  '#1791fc'
-                            }
-                        }
-                    },
-                    // fillColor: '#1791fc',
-                    zIndex: 50,
-                });
-                polygon.content = {"id":data["data"][i]["id"], "status":data["data"][i]["status"]}
-
-                polygon.on('click', polygonClick)
-
-                polygon.on('dblclick', () => {
-                    current_poly = polygon;
-                    select_poly = polygon
-                    polyEditor.setTarget(polygon);
-                    polyEditor.open();
+                polyEditor = new AMap.PolygonEditor(map);
+                polyEditor.addAdsorbPolygons(risk_polygons);
+                polyEditor.on('addnode', function(event) {
+                    log.info('触发事件：addnode')
                 })
 
-                map.add(polygon)
-                risk_polygons.push(polygon)
-            }
-            polyEditor = new AMap.PolygonEditor(map);
-            polyEditor.addAdsorbPolygons(risk_polygons);
-            polyEditor.on('addnode', function(event) {
-                log.info('触发事件：addnode')
-            })
+                polyEditor.on('adjust', function(event) {
+                    log.info('触发事件：adjust')
+                })
 
-            polyEditor.on('adjust', function(event) {
-                log.info('触发事件：adjust')
-            })
+                polyEditor.on('removenode', function(event) {
+                    log.info('触发事件：removenode')
+                })
 
-            polyEditor.on('removenode', function(event) {
-                log.info('触发事件：removenode')
-            })
-
-            polyEditor.on('end', function(event) {
-                log.info('触发事件： end');
-                // event.target 即为编辑后的多边形对象
-            })
+                polyEditor.on('end', function(event) {
+                    log.info('触发事件： end');
+                    // event.target 即为编辑后的多边形对象
+                })
+            });
         });
+
+
 
         log.success("地图加载完成！");
 

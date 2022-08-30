@@ -1,4 +1,4 @@
-package teleDemo;
+package teleDemo.util_test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
