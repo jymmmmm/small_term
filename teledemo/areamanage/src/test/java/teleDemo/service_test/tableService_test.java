@@ -2,8 +2,12 @@ package teleDemo.service_test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import teleDemo.areaManage10003;
 import teleDemo.mapper_test.TestPolyAreaMapper;
 import teleDemo.mapper_test.TestRiskyAreaMapper;
 import teleDemo.service.riskyAreaService;
@@ -13,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import teleDemo.entities.*;
 
-import static teleDemo.util.conversion.pl_to_ps;
-
+@SpringBootTest(classes = areaManage10003.class)
 public class tableService_test {
     @Autowired
     tableService tableService;

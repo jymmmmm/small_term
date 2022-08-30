@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import teleDemo.entities.riskyPersonArea;
 
+
+@Mapper
 public interface TestRiskyAreaMapper {
 
     @Select("select distinct * from riskyarea where lat=#{risky.lat} and lon=#{risky.lon} and status=#{risky.status} and " +

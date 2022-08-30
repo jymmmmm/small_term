@@ -5,6 +5,7 @@ import org.apache.ibatis.type.JdbcType;
 import teleDemo.entities.poly_string;
 
 
+@Mapper
 public interface TestPolyAreaMapper {
     @Select("select distinct * from polyarea where status=#{poly.status} and str_data=#{poly.str_data} and id=#{poly.id}")
     @Results(id = "polyarea", value = {
