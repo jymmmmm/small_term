@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-
+        <module>areamanage</module>
         <module>eurekaserver</module>
         <module>peoplemanage</module>
     </modules>
