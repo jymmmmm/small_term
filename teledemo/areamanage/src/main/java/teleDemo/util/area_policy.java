@@ -2,6 +2,7 @@ package teleDemo.util;
 
 import teleDemo.entities.Location;
 import teleDemo.entities.Pair;
+import teleDemo.entities.riskyPersonArea;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,5 +66,21 @@ public class area_policy {
         }
         return surround;
     }
+    public static double getearthdistance(riskyPersonArea a,riskyPersonArea b){
+        Double EARTH_RADIUS = 6378.137;
+        Double distance= 0.00;
+        Double lat_distance=Math.toRadians(a.getLat()-b.getLat());
+        Double lon_distance=Math.toRadians(a.getLon()-b.getLon());
+        distance = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(lat_distance/2),2)+
+                Math.cos(Math.toRadians(a.getLat())) * Math.cos(Math.toRadians(b.getLat())) * Math.pow(Math.sin(lon_distance/2), 2)));
+        distance=distance*EARTH_RADIUS;
+        return distance;
+    }
+//    public static void main(String[] args) {
+//        riskyPersonArea a=new riskyPersonArea().setLat(39.89).setLon(116.31);
+//        riskyPersonArea b=new riskyPersonArea().setLat(38.70).setLon(116.12);
+//        double d = getearthdistance(a,b);
+//        System.out.println(d);
+//    }
 
 }
