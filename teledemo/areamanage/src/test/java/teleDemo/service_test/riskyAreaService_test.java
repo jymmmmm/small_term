@@ -15,7 +15,7 @@ public class riskyAreaService_test {
 
     public List<riskyPersonArea> return_riskyAreaService() {
 
-        List<riskyPersonArea> area = riskyAreaService.getRiskyArea();
+        List<riskyPersonArea> area = riskyAreaService.CalculateRiskyArea();
         System.out.println(area);
         return area;
 

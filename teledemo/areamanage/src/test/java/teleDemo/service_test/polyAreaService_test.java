@@ -14,8 +14,8 @@ public class polyAreaService_test {
     @Test
     public void return_location() {
 
-        List<poly_list> area = polyAreaService.getpolyArea();
-        System.out.println(area);
+//        List<poly_list> area = polyAreaService.getpolyArea();
+//        System.out.println(area);
 
     }
 }
