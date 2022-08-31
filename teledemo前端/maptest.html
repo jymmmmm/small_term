@@ -63,7 +63,7 @@
 
 
 <script>
-
+    $.ajaxSettings.timeout='10000';
     var map;
     var polyEditor
     var poly_select
@@ -244,7 +244,6 @@
         for(let i=0; i<list.length;i++){
             send["list_data"].push([list[i]["lat"],list[i]["lng"]])
         }
-        console.log(current_poly.getPath())
         console.log(send)
         $.ajax({
             type: "post",
