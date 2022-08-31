@@ -22,6 +22,9 @@ public class riskyAreaService_test {
     }
     @Test
     public void riskyAreaService(){
-        Assertions.assertEquals("a", area_policy.judge_level(1000, 0));
+        Assertions.assertEquals("HIGH", area_policy.judge_level(1000, 0));
+        Assertions.assertEquals("MEDIUM", area_policy.judge_level(0, 10));
+        Assertions.assertEquals("LOW", area_policy.judge_level(0, 1));
+
     }
 }
