@@ -35,9 +35,38 @@ public class riskyAreaService_test {
         testAreas.add(new riskyPersonArea().setLat(1.0).setLon(2.0).setStatus("HIGH")
                 .setInfected_count(10).setClosed_count(0).setPoly_id("100_200"));
         Assertions.assertEquals(areas,testAreas);
+        areaOriginal.clear();
+        for(int i = 0; i < 10; ++i) {
+            riskyPersonArea riskyPersonArea = new riskyPersonArea();
+            riskyPersonArea.setLat(i);
+            riskyPersonArea.setLon(i);
+            riskyPersonArea.setStatus("3");
+            riskyPersonArea.setClosed_count(2);
+            riskyPersonArea.setInfected_count(2);
+            riskyPersonArea.setPoly_id("123");
+            areaOriginal.add(riskyPersonArea);
+        }
+        areas = this.riskyAreaService.CalculateRiskyArea(areaOriginal);
+        Assertions.assertTrue(areas.size() == 10);
+
+        for(int i = 0; i < 10; ++i) {
+            riskyPersonArea riskyPersonArea = new riskyPersonArea();
+            riskyPersonArea.setLat(20);
+            riskyPersonArea.setLon(20);
+            riskyPersonArea.setStatus("3");
+            riskyPersonArea.setClosed_count(2);
+            riskyPersonArea.setInfected_count(2);
+            riskyPersonArea.setPoly_id("123");
+            areaOriginal.add(riskyPersonArea);
+        }
+        areas = this.riskyAreaService.CalculateRiskyArea(areaOriginal);
+        Assertions.assertTrue(areas.size() == 11);
     }
     @Test
     public void riskyAreaService(){
-        Assertions.assertEquals("a", area_policy.judge_level(1000, 0));
+        Assertions.assertEquals("HIGH", area_policy.judge_level(1000, 0));
+        Assertions.assertEquals("MEDIUM", area_policy.judge_level(0, 10));
+        Assertions.assertEquals("LOW", area_policy.judge_level(0, 1));
+
     }
 }
