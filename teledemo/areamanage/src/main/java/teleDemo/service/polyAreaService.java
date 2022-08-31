@@ -30,8 +30,11 @@ public class polyAreaService {
     @Autowired
     riskyAreaService riskyAreaService;
 
-    public List<poly_list> Calculate_polyarea(){
+    public List<riskyPersonArea> riskyarea_fromdatabase(){
         List<riskyPersonArea> area=riskyAreaMapper.riskyarea_from_database();
+        return area;
+    }
+    public List<poly_list> Calculate_polyarea(List<riskyPersonArea> area){
         List<poly_list> poly_list_data = new ArrayList<>();
         for(riskyPersonArea a : area){
             Location location = new Location();
@@ -87,7 +90,8 @@ public class polyAreaService {
     }
 
     public List<poly_list> polyarea_operation(){
-        List<poly_list> polyarea=Calculate_polyarea();
+        List<riskyPersonArea> riskyPersonAreas=riskyarea_fromdatabase();
+        List<poly_list> polyarea=Calculate_polyarea(riskyPersonAreas);
         polyarea_to_database(polyarea);
         return polyarea;
     }
