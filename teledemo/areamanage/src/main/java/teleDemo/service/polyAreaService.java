@@ -50,15 +50,16 @@ public class polyAreaService {
         return poly_list_data;
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    public Boolean polyarea_to_database(List<poly_list> polylist_data ){
+    public List<poly_list> polyarea_to_database(List<poly_list> polylist_data ){
         polyAreaMapper.create_polyarea_table();
         ConcurrentHashMap<String,String> polylist_map=new ConcurrentHashMap<>();
         List<poly_string> polyarea = polyAreaMapper.getAllPolyArea();
+        List<poly_list> polyarea_db=new ArrayList<>();
         List<riskyPersonArea> area=riskyAreaMapper.riskyarea_from_database();
         if(polyarea.size() == 0){
             for(poly_list poly: polylist_data){
                 tableService.insert_info_table(poly);
+                polyarea_db.add(poly);
             }
         }
         else{
@@ -72,8 +73,10 @@ public class polyAreaService {
                         poly_string b=new poly_string(ar.getId(),polylist_map.get(ar.getId()),ar.getStr_data());
                         poly_list pl = conversion.ps_to_pl(b);
                         tableService.update_info_table(pl);
+                        polyarea_db.add(pl);
                     }
                     polylist_map.remove(ar.getId());
+                    polyarea_db.add(conversion.ps_to_pl(ar));
                 }
                 else{
                     tableService.delete_info_table(ar);
@@ -84,16 +87,15 @@ public class polyAreaService {
                 Location location=new Location().setLon(pair.getValue()).setLat(pair.getKey());//经纬度赋值相反
                 poly_list poly_list=new poly_list(key,polylist_map.get(key),generate_location(location,polylist_map.get(key), riskyAreaService.getCluster_num()));
                 tableService.insert_info_table(poly_list);
+                polyarea_db.add(poly_list);
             }
         }
-        return true;
+        return polyarea_db;
     }
 
     public List<poly_list> polyarea_operation(){
         List<riskyPersonArea> riskyPersonAreas=riskyarea_fromdatabase();
         List<poly_list> polyarea=Calculate_polyarea(riskyPersonAreas);
-        polyarea_to_database(polyarea);
-        return polyarea;
+        return polyarea_to_database(polyarea);
     }
-
 }

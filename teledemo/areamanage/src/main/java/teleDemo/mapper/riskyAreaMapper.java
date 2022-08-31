@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface riskyAreaMapper {
-    @Select("select distinct u.id,u.status,i.lat,i.lon from teledata.tb_user as u inner join teledata.tb_info as i \n" +
+    @Select("select distinct u.id,u.status,i.lat,i.lon from teledata.tb_user as u inner join teledata.tb_info as i on i.user_id = u.id \n" +
             "where u.id = i.user_id and u.status = 2 or u.status = 3;")
     @Results(id = "areaMap", value = {
             @Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),

@@ -109,6 +109,7 @@
         $.get("http://localhost:10003/v1/area",function(obj){
             var markers = []
             var data = obj
+            console.log(data)
             for(let i=0; i<data["data"].length; i++) {
                 var marker = new AMap.CircleMarker({
                     center: new AMap.LngLat(data["data"][i]["lon"],data["data"][i]["lat"]),
@@ -121,7 +122,8 @@
                     zIndex:10,
                     bubble:true,
                     cursor:'pointer',
-                    clickable: true
+                    clickable: true,
+                    center1: [data["data"][i]["lon"],data["data"][i]["lat"]]
                 });
                 let info = []
                 info.push("<div style=\"padding:7px 0px 0px 0px;\" color='blue'><h4>疫情信息</h4>");
@@ -133,6 +135,7 @@
                     + data["data"][i]["lon"] + "</h4>")
                 info.push("<div style=\"padding:7px 0px 0px 0px;\"><h4>" + '纬度'
                     + data["data"][i]["lat"] + "</h4>")
+                console.log(info)
                 marker.content = info;
                 marker.on('click', markerClick);
                 map.add(marker);
@@ -217,11 +220,14 @@
 
     function markerClick(e) {
         map.setFitView(e.target)
-        map.setCenter(e.target.center)
+        map.setCenter(e.target)
         infoWindow.setContent(e.target.content.join(""));
         // document.getElementById("infotitle").innerHTML = "aaaaaa";
+        console.log(infoWindow)
+        console.log(e.target.content.join(""))
+        console.log(e.target)
 
-        infoWindow.open(map, e.target.getPosition());
+        infoWindow.open(map, e.target["_opts"]["center1"]);
 
     }
 
