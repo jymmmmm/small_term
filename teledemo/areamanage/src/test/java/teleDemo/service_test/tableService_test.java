@@ -27,6 +27,7 @@ public class tableService_test {
     @Autowired
     TestRiskyAreaMapper testRiskyAreaMapper;
 
+
     @Test
     public void testInsertPolyList() {
         Pair<Double,Double> pair = new Pair<>(10.0,10.0);

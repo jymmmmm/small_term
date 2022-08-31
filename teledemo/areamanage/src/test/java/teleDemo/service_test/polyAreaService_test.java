@@ -37,5 +37,7 @@ public class polyAreaService_test {
         List<poly_list> testPolyLists = new ArrayList<>();
         testPolyLists.add(new poly_list("123","3",testPolyListData));
         Assertions.assertEquals(testPolyLists,polyLists);
+        Assertions.assertEquals(4, polyLists.get(0).getList_data().size());
+        Assertions.assertEquals(riskyPersonArea.getStatus(), polyLists.get(0).getStatus());
     }
 }
