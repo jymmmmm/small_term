@@ -9,13 +9,13 @@ import teleDemo.entities.*;
 
 public class polyAreaService_test {
     @Autowired
-    polyAreaService  polyAreaService ;
+    polyAreaService  polyAreaService;
 
     @Test
     public void return_location() {
 
-        List<poly_list> area = polyAreaService.getpolyArea();
-        System.out.println(area);
+//        List<poly_list> area = polyAreaService.getpolyArea();
+//        System.out.println(area);
 
     }
 }
