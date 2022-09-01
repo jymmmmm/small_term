@@ -70,6 +70,8 @@
     var current_poly
     var infoWindow
     var polygons = []
+    var markers = []
+
 
     var risk_polygons = []
 
@@ -107,9 +109,7 @@
         //绑定地图移动事件
         map.on('moveend', logMapinfo);
         $.get("http://localhost:10003/v1/area",function(obj){
-            var markers = []
             var data = obj
-            console.log(data)
             for(let i=0; i<data["data"].length; i++) {
                 var marker = new AMap.CircleMarker({
                     center: new AMap.LngLat(data["data"][i]["lon"],data["data"][i]["lat"]),
@@ -135,13 +135,12 @@
                     + data["data"][i]["lon"] + "</h4>")
                 info.push("<div style=\"padding:7px 0px 0px 0px;\"><h4>" + '纬度'
                     + data["data"][i]["lat"] + "</h4>")
-                console.log(info)
                 marker.content = info;
                 marker.on('click', markerClick);
-                map.add(marker);
+                // map.add(marker);
                 markers.push(marker);
             }
-
+            map.add(markers)
 
             $.get("http://localhost:10003/v1/poly",function (obj){
                 const data = obj;
@@ -185,7 +184,9 @@
 
                     map.add(polygon)
                     risk_polygons.push(polygon)
+                    map.on('zoomchange', mapZoom);
                 }
+
                 polyEditor = new AMap.PolygonEditor(map);
                 polyEditor.addAdsorbPolygons(risk_polygons);
                 polyEditor.on('addnode', function(event) {
@@ -205,9 +206,8 @@
                     // event.target 即为编辑后的多边形对象
                 })
             });
+            hideMarkers()
         });
-
-
 
         log.success("地图加载完成！");
 
@@ -219,14 +219,10 @@
 
 
     function markerClick(e) {
-        map.setFitView(e.target)
-        map.setCenter(e.target)
+        map.setCenter(e.target["_opts"]["center1"])
+        // map.setFitView(e.target)
         infoWindow.setContent(e.target.content.join(""));
         // document.getElementById("infotitle").innerHTML = "aaaaaa";
-        console.log(infoWindow)
-        console.log(e.target.content.join(""))
-        console.log(e.target)
-
         infoWindow.open(map, e.target["_opts"]["center1"]);
 
     }
@@ -235,8 +231,8 @@
         map.setFitView(e.target)
         poly_select = e.target
 
-
     }
+
     function editClick(){
         current_poly = poly_select
         polyEditor.setTarget(current_poly);
@@ -344,7 +340,41 @@
         map.setCenter(obj[obj.options.selectedIndex].center)
     }
 
+    function hideMarkers(){
+        for (let i = 0; i < markers.length; i++) {
+            markers[i].hide()
+        }
+    }
 
+    function hidePolygons(){
+        for (let i = 0; i < risk_polygons.length; i++) {
+            risk_polygons[i].hide()
+        }
+    }
+
+    function showMarkers(){
+        for (let i = 0; i < markers.length; i++) {
+            markers[i].show()
+        }
+    }
+
+    function showPolygons(){
+        for (let i = 0; i < risk_polygons.length; i++) {
+            risk_polygons[i].show()
+        }
+    }
+
+    function mapZoom(){
+        var zoom = map.getZoom(); //获取当前地图级别
+        if(zoom > 10){
+            showPolygons()
+            hideMarkers()
+        }
+        else{
+            showMarkers()
+            hidePolygons()
+        }
+    }
 </script>
 </body>
 </html>
